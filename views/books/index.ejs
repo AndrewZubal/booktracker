@@ -1,0 +1,9 @@
+<%- include('../layout') %>
+<h2>All Books</h2>
+<ul>
+  <% books.forEach(book => { %>
+    <li>
+      <a href="/books/<%= book._id %>"><%= book.title %></a>
+    </li>
+  <% }) %>
+</ul>
