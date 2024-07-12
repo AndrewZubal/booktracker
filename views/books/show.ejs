@@ -1,9 +1,28 @@
-<%- include('../layout') %>
-<h2><%= book.title %></h2>
-<p>Author: <%= book.author %></p>
-<p>Read: <%= book.read ? 'Yes' : 'No' %></p>
-<p>Liked: <%= book.liked ? 'Yes' : 'No' %></p>
-<a href="/books/<%= book._id %>/edit">Edit</a>
-<form action="/books/<%= book._id %>?_method=DELETE" method="POST">
-  <button type="submit">Delete</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+  <title>Book Tracking App</title>
+</head>
+<body>
+  <header>
+    <h1>Book Tracking App</h1>
+    <nav>
+      <a href="/books">All Books</a>
+      <a href="/books/new">Add New Book</a>
+    </nav>
+  </header>
+  <main>
+    <h2><%= book.title %></h2>
+    <p>Author: <%= book.author %></p>
+    <p>Read: <%= book.read ? 'Yes' : 'No' %></p>
+    <p>Liked: <%= book.liked ? 'Yes' : 'No' %></p>
+    <a href="/books/<%= book._id %>/edit">Edit</a>
+    <form action="/books/<%= book._id %>?_method=DELETE" method="POST">
+      <button type="submit">Delete</button>
+    </form>
+  </main>
+</body>
+</html>

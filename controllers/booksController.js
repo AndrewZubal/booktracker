@@ -3,8 +3,7 @@ const Book = require('../models/Book');
 // Create
 exports.createBook = async (req, res) => {
   try {
-    const book = new Book(req.body);
-    await book.save();
+    const book = await Book.create(req.body);
     res.redirect('/books');
   } catch (error) {
     res.status(400).send(error.message);
@@ -15,7 +14,7 @@ exports.createBook = async (req, res) => {
 exports.getBooks = async (req, res) => {
   try {
     const books = await Book.find();
-    res.render('books/index', { books });
+    res.render('books/index', { books:books });
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -31,8 +30,37 @@ exports.getBook = async (req, res) => {
   }
 };
 
+// Read - Edit
+exports.editBook = async (req, res) => {
+    try {
+      const book = await Book.findById(req.params.id);
+      res.render('books/edit', { book });
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  };
+
+  // Read - new
+exports.newBook = async (req, res) => {
+    try {
+      const book = await Book.findById(req.params.id);
+      res.render('books/new', { book });
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  };
+  
+
 // Update
 exports.updateBook = async (req, res) => {
+    if (req.body.read === "on") {
+        req.body.read = true
+    }
+    else {req.body.read = false}
+    if (req.body.liked === "on") {
+        req.body.liked = true
+    }
+    else {req.body.liked = false}
   try {
     await Book.findByIdAndUpdate(req.params.id, req.body);
     res.redirect(`/books/${req.params.id}`);
